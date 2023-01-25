@@ -2,12 +2,14 @@ const express = require("express");
 const app = express();
 const port = 5000;
 const mongoose = require("mongoose");
+const cors = require("cors");
 mongoose.set('strictQuery', false);
 const cookieParser = require("cookie-parser");
 const url = "mongodb://projetoaula:projeto2023@ac-n746omc-shard-00-00.maqs5mo.mongodb.net:27017,ac-n746omc-shard-00-01.maqs5mo.mongodb.net:27017,ac-n746omc-shard-00-02.maqs5mo.mongodb.net:27017/?ssl=true&replicaSet=atlas-flrds2-shard-0&authSource=admin&retryWrites=true&w=majority";
 const dbName = "ProjetoTDW";
 app.use(express.json())
 app.use(cookieParser()) 
+app.use(cors());
 
 const hoteis = require("./Controllers/hotel");
 const quartos = require("./Controllers/quarto");
