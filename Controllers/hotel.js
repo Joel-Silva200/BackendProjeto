@@ -1,6 +1,7 @@
 var express = require('express')
 var router = express.Router();
 var hotel = require("../Models/hotel.js")
+var Quarto = require("../Models/quarto.js")
 
 //
 // verificações de user
