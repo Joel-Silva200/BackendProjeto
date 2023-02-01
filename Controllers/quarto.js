@@ -14,7 +14,7 @@ const tokenVerify = (req, res, next) => {
       return res.status(401).json("Não autenticado!")
     }
   
-    jwt.verify(token, process.env.JWT, (err, user) => {
+    jwt.verify(token, "8H2nd01nd091283J987AF823", (err, user) => {
       if (err) return res.status(403).json("Token inválida!")
       req.user = user;
       next();
