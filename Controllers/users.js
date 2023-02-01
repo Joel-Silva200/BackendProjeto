@@ -46,7 +46,7 @@ const adminVerify = (req, res, next) => {
 //
 
 
-router.get("/:id", async (req,res,next) => {
+router.get("/:id",userVerify, async (req,res,next) => {
 
     try {
         const user = await users.findById(req.params.id);
@@ -57,7 +57,7 @@ router.get("/:id", async (req,res,next) => {
 
 })
 
-router.get("/", async (req,res,next) => {
+router.get("/",adminVerify, async (req,res,next) => {
 
     try {
         const allUsers = await users.find();
@@ -68,7 +68,7 @@ router.get("/", async (req,res,next) => {
 
 })
 
-router.put("/", async (req,res,next) => {
+router.put("/",userVerify, async (req,res,next) => {
 
     try {
         const userAtualizado = await users.findByIdAndUpdate(
@@ -83,7 +83,7 @@ router.put("/", async (req,res,next) => {
 
 })
 
-router.delete("/:id", async (req,res,next) => {
+router.delete("/:id",userVerify, async (req,res,next) => {
 
     try {
         await users.findByIdAndDelete(req.params.id);
