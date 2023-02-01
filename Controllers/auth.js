@@ -48,7 +48,7 @@ router.post("/login", async (req,res,next) => {
              id: user._id,
              isAdmin: user.isAdmin,
            },
-           process.env.JWT
+           "8H2nd01nd091283J987AF823"
          );
 
          const { password, isAdmin, ...otherDetails } = user._doc;
