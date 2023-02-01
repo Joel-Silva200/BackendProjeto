@@ -56,7 +56,7 @@ router.get("/", async (req,res,next) => {
 
 })
 
-router.post("/", async (req,res,next) => {
+router.post("/",adminVerify, async (req,res,next) => {
 
     const novoHotel = new hotel(req.body);
     
@@ -69,7 +69,7 @@ router.post("/", async (req,res,next) => {
 
 })
 
-router.put("/", async (req,res,next) => {
+router.put("/",adminVerify, async (req,res,next) => {
 
     try {
         const hotelAtualizado = await hotel.findByIdAndUpdate(
@@ -84,7 +84,7 @@ router.put("/", async (req,res,next) => {
 
 })
 
-router.delete("/:id", async (req,res,next) => {
+router.delete("/:id",adminVerify, async (req,res,next) => {
 
     try {
         await hotel.findByIdAndDelete(req.params.id);
