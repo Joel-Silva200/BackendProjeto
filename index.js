@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+import dotenv from "dotenv";
 const port = 5000;
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -10,6 +11,7 @@ const dbName = "ProjetoTDW";
 app.use(express.json())
 app.use(cookieParser()) 
 app.use(cors());
+dotenv.config();
 
 const hoteis = require("./Controllers/hotel");
 const quartos = require("./Controllers/quarto");
