@@ -56,6 +56,22 @@ router.get("/", async (req,res,next) => {
 
 })
 
+router.get("/quartos/:id", async (req,res,next) => {
+  
+  try {
+    const hotel1 = await hotel.findById(req.params.id);
+    const lista = await Promise.all(
+      hotel1.quartos.map((quarto) => {
+        return Quarto.findById(quarto);
+      })
+    );
+    res.status(200).json(lista);
+  } catch (error) {
+    next(error);
+  }
+  
+})
+
 router.post("/",adminVerify, async (req,res,next) => {
 
     const novoHotel = new hotel(req.body);
