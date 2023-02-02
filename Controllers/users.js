@@ -68,7 +68,7 @@ router.get("/",adminVerify, async (req,res,next) => {
 
 })
 
-router.put("/",userVerify, async (req,res,next) => {
+router.put("/:id",userVerify, async (req,res,next) => {
 
     try {
         const userAtualizado = await users.findByIdAndUpdate(
