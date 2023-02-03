@@ -1,6 +1,7 @@
 var express = require('express')
 var router = express.Router();
 var hotel = require("../Models/hotel.js")
+var Quarto = require("../Models/quarto.js")
 
 //
 // verificações de user
@@ -12,7 +13,7 @@ const tokenVerify = (req, res, next) => {
     return res.status(401).json("Não autenticado!")
   }
 
-  jwt.verify(token, process.env.JWT, (err, user) => {
+  jwt.verify(token, "8H2nd01nd091283J987AF823", (err, user) => {
     if (err) return res.status(403).json("Token inválida!")
     req.user = user;
     next();
@@ -56,7 +57,23 @@ router.get("/", async (req,res,next) => {
 
 })
 
-router.post("/", async (req,res,next) => {
+router.get("/quartos/:id", async (req,res,next) => {
+  
+  try {
+    const hotel1 = await hotel.findById(req.params.id);
+    const lista = await Promise.all(
+      hotel1.quartos.map((quarto) => {
+        return Quarto.findById(quarto);
+      })
+    );
+    res.status(200).json(lista);
+  } catch (error) {
+    next(error);
+  }
+  
+})
+
+router.post("/",adminVerify, async (req,res,next) => {
 
     const novoHotel = new hotel(req.body);
     
@@ -69,7 +86,7 @@ router.post("/", async (req,res,next) => {
 
 })
 
-router.put("/", async (req,res,next) => {
+router.put("/",adminVerify, async (req,res,next) => {
 
     try {
         const hotelAtualizado = await hotel.findByIdAndUpdate(
@@ -84,7 +101,7 @@ router.put("/", async (req,res,next) => {
 
 })
 
-router.delete("/:id", async (req,res,next) => {
+router.delete("/:id",adminVerify, async (req,res,next) => {
 
     try {
         await hotel.findByIdAndDelete(req.params.id);

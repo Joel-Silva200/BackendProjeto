@@ -14,7 +14,7 @@ router.post("/register", async (req,res,next) => {
     try {
         const novoUser = new User({
             email: req.body.email,
-            password: req.body.password,
+            password: hash,
             nome: req.body.nome,
             morada: req.body.morada,
             contribuinte: req.body.contribuinte,
@@ -34,13 +34,32 @@ router.post("/login", async (req,res,next) => {
         if (!user) return res.status(400).json("Email incorreto!")
 
         // const pass = md5({password:req.body.password})
-        // const passFind = User.findOne({password:req.body.password})
-        const passFind = await bcrypt.compare(req.body.password, user.email)
+         // const passFind = User.findOne({password:req.body.password})
+        
+        const passFind = await bcrypt.compare(
+            req.body.password,
+            user.password
+        );
+        
         if (!passFind) return res.status(400).json("Palavra-passe errada ou utilizador inexistente!")
 
-        // const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT)
+         const token = jwt.sign(
+           {
+             id: user._id,
+             isAdmin: user.isAdmin,
+           },
+           "8H2nd01nd091283J987AF823"
+         );
+
+         const { password, isAdmin, ...otherDetails } = user._doc;
+         res
+           .cookie("access_token", token, {
+             httpOnly: true,
+           })
+           .status(200)
+           .json({ details: { ...otherDetails }, isAdmin });
         
-        // res.cookie("access_token", token, {httpOnly: true}).status(200).json(user)
+       // res.status(200).json(user)
     } catch (err) {
         next(err);
     }

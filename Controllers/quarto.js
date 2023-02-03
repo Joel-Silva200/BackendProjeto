@@ -14,7 +14,7 @@ const tokenVerify = (req, res, next) => {
       return res.status(401).json("Não autenticado!")
     }
   
-    jwt.verify(token, process.env.JWT, (err, user) => {
+    jwt.verify(token, "8H2nd01nd091283J987AF823", (err, user) => {
       if (err) return res.status(403).json("Token inválida!")
       req.user = user;
       next();
@@ -36,7 +36,7 @@ const tokenVerify = (req, res, next) => {
   
 
 
-router.post("/:idHotel", async (req,res,next) => {
+router.post("/:idHotel",adminVerify, async (req,res,next) => {
     const idHotel = req.params.idHotel;
     const novoQuarto = new quarto(req.body);
   
@@ -55,7 +55,7 @@ router.post("/:idHotel", async (req,res,next) => {
     }
 });
   
-router.put("/:id", async (req,res,next) => {
+router.put("/:id",adminVerify, async (req,res,next) => {
     try {
       const quartoAtualizado = await quarto.findByIdAndUpdate(
         req.params.id,
@@ -84,7 +84,7 @@ router.put("/disponibilidade/:id", async (req,res,next) => {
     }
 });
 
-router.delete("/:id/:idHotel", async (req,res,next) => {
+router.delete("/:id/:idHotel",adminVerify, async (req,res,next) => {
     const idHotel = req.params.idHotel;
     try {
       await quarto.findByIdAndDelete(req.params.id);
