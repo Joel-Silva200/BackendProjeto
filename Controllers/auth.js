@@ -48,7 +48,10 @@ router.post("/login", async (req,res,next) => {
              id: user._id,
              isAdmin: user.isAdmin,
            },
-           "8H2nd01nd091283J987AF823"
+           "backendProjeto",
+           {
+               expiresIn: '30m'
+           }
          );
 
          const { password, isAdmin, ...otherDetails } = user._doc;
