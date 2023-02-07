@@ -19,7 +19,7 @@ const QuartoSchema = new Schema(
       type: String,
       required: true,
     },
-    nQuartos: [{ 
+    nQuartos: [{
         number: Number, 
         datasIndisponiveis: {type: [Date]}
     }],
