@@ -29,10 +29,6 @@ const UserSchema = new Schema({
         unique: true,
     },
 
-    foto: {
-        type: [String],
-    },
-
     isAdmin: {
         type: Boolean,
         default: false,
