@@ -36,7 +36,7 @@ const tokenVerify = (req, res, next) => {
   
 
 
-router.post("/:idHotel",adminVerify, async (req,res,next) => {
+router.post("/:idHotel", async (req,res,next) => {
     const idHotel = req.params.idHotel;
     const novoQuarto = new quarto(req.body);
   
