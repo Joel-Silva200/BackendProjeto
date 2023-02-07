@@ -57,7 +57,7 @@ router.get("/:id",userVerify, async (req,res,next) => {
 
 })
 
-router.get("/",adminVerify, async (req,res,next) => {
+router.get("/", async (req,res,next) => {
 
     try {
         const allUsers = await users.find();
