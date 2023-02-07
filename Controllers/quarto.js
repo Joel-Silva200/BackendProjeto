@@ -3,39 +3,6 @@ var router = express.Router();
 var quarto = require("../Models/quarto.js")
 var hotel = require("../Models/hotel.js")
 
-
-//
-// verificações de user
-//
-
-const tokenVerify = (req, res, next) => {
-    const token = req.cookies.access_token;
-    if (!token) {
-      return res.status(401).json("Não autenticado!")
-    }
-  
-    jwt.verify(token, "8H2nd01nd091283J987AF823", (err, user) => {
-      if (err) return res.status(403).json("Token inválida!")
-      req.user = user;
-      next();
-    });
-  };
-  
-  const adminVerify = (req, res, next) => {
-    tokenVerify(req, res, next, () => {
-      if (req.user.isAdmin) {
-        next();
-      } else {
-          return res.status(403).json("Não autorizado!")
-      }
-    });
-  };
-  
-  
-  //
-  
-
-
 router.post("/:idHotel", async (req,res,next) => {
     const idHotel = req.params.idHotel;
     const novoQuarto = new quarto(req.body);
@@ -55,7 +22,7 @@ router.post("/:idHotel", async (req,res,next) => {
     }
 });
   
-router.put("/:id",adminVerify, async (req,res,next) => {
+router.put("/:id", async (req,res,next) => {
     try {
       const quartoAtualizado = await quarto.findByIdAndUpdate(
         req.params.id,
@@ -84,7 +51,7 @@ router.put("/disponibilidade/:id", async (req,res,next) => {
     }
 });
 
-router.delete("/:id/:idHotel",adminVerify, async (req,res,next) => {
+router.delete("/:id/:idHotel", async (req,res,next) => {
     const idHotel = req.params.idHotel;
     try {
       await quarto.findByIdAndDelete(req.params.id);
