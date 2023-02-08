@@ -58,10 +58,10 @@ router.post("/login", async (req,res,next) => {
         
          res
             .cookie("access_token", token, {
-            httpOnly: true,
+                httpOnly: true,
             })
             .status(200)
-            .json({ ...otherDetails });
+            .json({ details: { ...otherDetails } });
         
        // res.status(200).json(user)
     } catch (err) {
