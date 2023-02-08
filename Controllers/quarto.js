@@ -68,6 +68,15 @@ router.delete("/:id/:idHotel", async (req,res,next) => {
     }
 });
 
+router.delete("/:id", async (req,res,next) => {
+    try {
+      await quarto.findByIdAndDelete(req.params.id);
+      res.status(200).json("Quarto apagado.");
+    } catch (err) {
+      next(err);
+    }
+});
+
 router.get("/:id", async (req,res,next) => {
     try {
       const quarto1 = await quarto.findById(req.params.id);
