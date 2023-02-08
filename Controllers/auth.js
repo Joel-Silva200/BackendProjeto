@@ -50,7 +50,7 @@ router.post("/login", async (req,res,next) => {
            },
            "backendProjeto",
            {
-               expiresIn: '30m'
+               expiresIn: '1h'
            }
          );
 
