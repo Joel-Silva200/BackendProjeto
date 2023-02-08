@@ -61,7 +61,7 @@ router.post("/login", async (req,res,next) => {
             httpOnly: true,
             })
             .status(200)
-            .json({ details: { ...otherDetails } });
+            .json({ user });
         
        // res.status(200).json(user)
     } catch (err) {
