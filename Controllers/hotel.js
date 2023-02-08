@@ -54,7 +54,7 @@ router.post("/", async (req,res,next) => {
 
 })
 
-router.put("/", async (req,res,next) => {
+router.put("/:id", async (req,res,next) => {
 
     try {
         const hotelAtualizado = await hotel.findByIdAndUpdate(
