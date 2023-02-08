@@ -10,7 +10,7 @@ const dbName = "ProjetoTDW";
 app.use(express.json())
 app.use(cookieParser())
 const corsOptions ={
-    origin:'http://localhost:3000', 
+    origin:'https://projetobookingfrontend.onrender.com', 
     credentials:true,
     optionSuccessStatus:200
 }
